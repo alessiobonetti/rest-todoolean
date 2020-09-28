@@ -30,31 +30,32 @@ function renderData(ele){
 
 // funzione cancella dati
 function deleteData(id){
-  var target = $(".delete")
-  $.ajax(
-    {
-      "url": "http://157.230.17.132:3005/todos/"+id,
-      "method": "DELETE",
-      "success": function(data) {
-        target.parent().remove();
-      },
-      "error": function(err) {
-        alert("Errore");
-      }
-    }
-  );
+
 }
 
 // Main Document
 $(document).ready(
   function(){
+
     getData();
 
     $(".todo_list").on("click",".delete",
     function(){
-        var getId = $(this).parent().attr("id");
+        var getId = $(this).data("id");
         console.log(getId);
-        deleteData(getId);
+        var target = $(".delete");
+        $.ajax(
+          {
+            "url": "http://157.230.17.132:3005/todos/"+getId,
+            "method": "DELETE",
+            "success": function(data) {
+              target.parent().remove();
+            },
+            "error": function(err) {
+              alert("Errore");
+            }
+          }
+        );
       }
     );
   }
